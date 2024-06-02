@@ -30,7 +30,7 @@ jobs:
             if (sortedComments) {
                 const latestComment = sortedComments[0];
                 const deployFound = latestComment.body.includes('deploy');
-            else {
+            } else {
                 const deployFound = false;
             }
             return { deploy: deployFound };
