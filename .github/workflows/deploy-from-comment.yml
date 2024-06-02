@@ -7,33 +7,7 @@ on:
 jobs:
   check-comments:
     runs-on: ubuntu-latest
-    outputs:
-      deploy: ${{ steps.check-deploy.outputs.deploy }}
+    if: ${{ github.event.comment.body == 'deploy' }}
     steps:
       - name: Github ref
         run: echo GITHUB_REF=${GITHUB_REF}
-      - name: Check for "deploy" in the most recent PR comment
-        id: check-deploy
-        uses: actions/github-script@v7
-        with:
-          script: |
-            // Get comments on the PR
-            const comments = await github.rest.issues.listComments({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo
-            });
-
-            // Sort comments based on their creation datetime in descending order
-            const sortedComments = comments.data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-            var deployFound;
-            if (sortedComments) {
-                const latestComment = sortedComments[0];
-                deployFound = latestComment.body.includes('deploy');
-            } else {
-                deployFound = false;
-            }
-            return { deploy: deployFound };
-      - name: Set output
-        run: echo "deploy=${{ steps.check-deploy.outputs.deploy }}"
