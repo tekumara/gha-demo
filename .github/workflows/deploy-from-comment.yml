@@ -29,4 +29,4 @@ jobs:
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/release.yml/dispatches \
-            -d '{"ref":"test1"}'
+            -d '{"ref":"main"}'
