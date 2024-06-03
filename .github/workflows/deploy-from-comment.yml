@@ -8,7 +8,7 @@ jobs:
   check-comments:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # to trigger a workflow dispatch
+      actions: write # to trigger a workflow dispatch
     if: ${{ github.event.comment.body == 'deploy' }}
     steps:
       - name: Github event details
@@ -23,7 +23,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set +x
-          curl -sSL \
+          curl --fail-with-body -sSL \
             -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${GITHUB_TOKEN}" \
