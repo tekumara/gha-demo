@@ -1,0 +1,11 @@
+name: release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        run: echo 🚀

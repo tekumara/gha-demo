@@ -11,3 +11,22 @@ jobs:
     steps:
       - name: Github ref
         run: echo GITHUB_REF=${GITHUB_REF}
+      - name: Github event details
+        uses: actions/github-script@v7
+        with:
+          script: |
+            console.log( ${{ github.event }})
+      - name: env
+        run: env | sort
+      - name: Trigger release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set +x
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/tekumar/gha-demo/actions/workflows/release.yml/dispatches \
+            -d '{"ref":"${{ github.event.ref }}"}'
