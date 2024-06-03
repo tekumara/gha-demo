@@ -23,6 +23,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set +x
+          echo ${GITHUB_REPOSITORY}
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
