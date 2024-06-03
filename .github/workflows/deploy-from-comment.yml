@@ -7,8 +7,6 @@ on:
 jobs:
   check-comments:
     runs-on: ubuntu-latest
-    permissions:
-      actions: write # to trigger a workflow dispatch
     if: ${{ github.event.comment.body == 'deploy' }}
     steps:
       - name: Github event details
