@@ -13,6 +13,6 @@ jobs:
     steps:
     - name: Version
       run: |
-          export VERSION="${{ github.run_number }}.${GITHUB_SHA:0:7}"
+          export VERSION="${GITHUB_RUN_NUMBER}.${GITHUB_SHA:0:7}"
           echo $VERSION
           env
