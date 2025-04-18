@@ -1,0 +1,17 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Version
+      run: |
+          export VERSION="${{ github.run_number }}.${GITHUB_SHA:0:7}"
+          echo $VERSION
